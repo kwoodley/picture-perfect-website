@@ -1,0 +1,109 @@
+{
+  "name": "picture-perfect-consulting",
+  "version": "1.0.0",
+  "description": "Modern, responsive website for Picture Perfect Consulting - helping high performers discover meaningful, well-paid work",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "test": "echo 'Open mobile-test.html to test responsive design' && exit 0",
+    "build": "echo 'Static site - no build process needed' && exit 0",
+    "lint:css": "echo 'CSS linting not configured - add stylelint for future development' && exit 0",
+    "lint:html": "echo 'HTML validation not configured - add html-validate for future development' && exit 0",
+    "deploy:netlify": "echo 'Deploy to Netlify - configure netlify-cli if needed' && exit 0",
+    "deploy:vercel": "echo 'Deploy to Vercel - configure vercel-cli if needed' && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/picture-perfect/career-coaching-website.git"
+  },
+  "keywords": [
+    "career-coaching",
+    "professional-development",
+    "career-transition",
+    "job-search",
+    "executive-coaching",
+    "responsive-design",
+    "blue-theme",
+    "css-grid",
+    "modern-web",
+    "high-performers"
+  ],
+  "author": {
+    "name": "Picture Perfect Consulting",
+    "email": "hello@pictureperfectcareer.com",
+    "url": "https://pictureperfectcareer.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/picture-perfect/career-coaching-website/issues"
+  },
+  "homepage": "https://pictureperfectcareer.com",
+  "browserslist": [
+    "last 3 versions",
+    "> 1%",
+    "not dead",
+    "not IE <= 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "comment": "Future development dependencies for enhanced development workflow",
+    "potential": {
+      "stylelint": "^15.0.0",
+      "stylelint-config-standard": "^34.0.0",
+      "html-validate": "^8.0.0",
+      "browser-sync": "^2.29.0",
+      "sass": "^1.69.0",
+      "postcss": "^8.4.0",
+      "autoprefixer": "^10.4.0",
+      "cssnano": "^6.0.0",
+      "prettier": "^3.0.0",
+      "eslint": "^8.50.0",
+      "lighthouse-ci": "^0.12.0"
+    }
+  },
+  "config": {
+    "port": 8000,
+    "host": "localhost"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "docs/mobile-test.html"
+  },
+  "files": [
+    "index.html",
+    "about.html", 
+    "services.html",
+    "contact.html",
+    "resources.html",
+    "coaching.html",
+    "assessments.html",
+    "success-stories.html",
+    "blog.html",
+    "assets/",
+    "docs/"
+  ],
+  "seo": {
+    "title": "Picture Perfect Consulting - Transform Your Career",
+    "description": "Professional career coaching for high performers seeking meaningful, well-paid work. Expert guidance for career discovery, transitions, and job search success.",
+    "keywords": "career coaching, career change, professional development, job search, executive coaching",
+    "og:image": "assets/images/og-image.jpg",
+    "twitter:card": "summary_large_image"
+  },
+  "deployment": {
+    "platforms": ["netlify", "vercel", "github-pages"],
+    "build_command": "echo 'No build needed - static site'",
+    "publish_directory": "."
+  },
+  "performance": {
+    "lighthouse_targets": {
+      "performance": 95,
+      "accessibility": 100,
+      "best_practices": 100,
+      "seo": 100
+    }
+  }
+}
