@@ -374,9 +374,20 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    padding: 12px;
     position: relative;
-    z-index: 1001;
+    z-index: 1002;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
 }
 
 .apple-menu-icon {
@@ -430,6 +441,9 @@ body {
     z-index: 999;
     opacity: 0;
     transition: opacity 0.3s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
 }
 
 .apple-menu-overlay.active {
@@ -448,6 +462,10 @@ body {
     transform: translateY(-100%);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 .apple-menu.active {
@@ -499,6 +517,11 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
     letter-spacing: -0.5px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .apple-menu-nav .nav-link:hover,
@@ -1871,6 +1894,29 @@ body {
     font-size: var(--font-size-base);
 }
 
+/* Browser Compatibility Fixes */
+@supports not (backdrop-filter: blur(10px)) {
+    .apple-menu-overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    .apple-menu-header {
+        background-color: #f8fafc;
+    }
+    
+    .apple-menu-footer {
+        background-color: #f8fafc;
+    }
+}
+
+/* Ensure touch targets are large enough for accessibility */
+@media (max-width: 1024px) {
+    .apple-menu-close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .header .container {
@@ -1901,7 +1947,7 @@ body {
     
     /* Show Apple-style menu on mobile */
     .apple-menu-toggle {
-        display: block;
+        display: flex;
     }
     
     .apple-menu,

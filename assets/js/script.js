@@ -18,6 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay: !!appleMenuOverlay
     });
     
+    // Additional debug info
+    if (appleMenuToggle) {
+        console.log('Toggle element:', appleMenuToggle);
+        console.log('Toggle computed style:', window.getComputedStyle(appleMenuToggle).display);
+        console.log('Toggle clickable:', !appleMenuToggle.disabled);
+        console.log('Toggle position:', appleMenuToggle.getBoundingClientRect());
+    }
+    
     function openAppleMenu() {
         console.log('🍎 Opening Apple menu');
         if (appleMenu) appleMenu.classList.add('active');
@@ -35,12 +43,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (appleMenuToggle) {
+        console.log('🔧 Adding click listener to hamburger toggle');
         appleMenuToggle.addEventListener('click', function(e) {
             console.log('🔘 Apple menu toggle clicked');
             e.preventDefault();
             e.stopPropagation();
             openAppleMenu();
         });
+        
+        // Also try adding event listener for touch devices
+        appleMenuToggle.addEventListener('touchstart', function(e) {
+            console.log('👆 Apple menu toggle touched');
+        }, { passive: true });
+    } else {
+        console.error('❌ Apple menu toggle not found!');
     }
     
     if (appleMenuClose) {

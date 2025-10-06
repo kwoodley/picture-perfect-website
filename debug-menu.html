@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Debug - Picture Perfect Consulting</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 2000;
+            max-width: 250px;
+        }
+        
+        .status-visible { color: #00ff00; }
+        .status-hidden { color: #ff6666; }
+        
+        .debug-controls {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+        }
+        
+        .debug-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+            margin: 2px;
+        }
+        
+        .debug-btn:hover {
+            background: #0056b3;
+        }
+        
+        /* Force mobile mode */
+        body.force-mobile-debug .nav-menu,
+        body.force-mobile-debug .social-icons,
+        body.force-mobile-debug .location-info {
+            display: none !important;
+        }
+        
+        body.force-mobile-debug .apple-menu-toggle {
+            display: flex !important;
+        }
+        
+        body.force-mobile-debug .apple-menu,
+        body.force-mobile-debug .apple-menu-overlay {
+            display: block !important;
+        }
+        
+        body.force-mobile-debug .header .container {
+            grid-template-columns: 1fr auto !important;
+        }
+        
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .explanation h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .explanation p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .current-state {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info" id="debug-info">
+        <div><strong>Menu Debug Info</strong></div>
+        <div>Viewport: <span id="viewport">-</span>px</div>
+        <div>Desktop Menu: <span id="desktop-status" class="status-hidden">Hidden</span></div>
+        <div>Hamburger: <span id="hamburger-status" class="status-hidden">Hidden</span></div>
+        <div>Mobile Menu: <span id="mobile-menu-status" class="status-hidden">Hidden</span></div>
+        
+        <div class="debug-controls">
+            <button class="debug-btn" onclick="toggleMobileMode()">Toggle Mobile</button>
+            <button class="debug-btn" onclick="testHamburger()">Test Click</button>
+            <button class="debug-btn" onclick="refreshStatus()">Refresh</button>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
+                <span class="brand-subtitle">CAREER COACHING<br>FOR HIGH PERFORMERS</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <a href="services.html" class="nav-link">SERVICES</a>
+                <a href="resources.html" class="nav-link">RESOURCES</a>
+                <a href="contact.html" class="nav-link">CONTACT</a>
+            </nav>
+
+            <div class="social-icons">
+                <a href="#" class="social-icon">💼</a>
+                <a href="#" class="social-icon">🐦</a>
+                <a href="#" class="social-icon">📷</a>
+            </div>
+
+            <div class="location-info">
+                <span class="location-title">NATIONWIDE ONLINE</span>
+            </div>
+            
+            <button class="apple-menu-toggle" aria-label="Open menu">
+                <div class="apple-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </header>
+    
+    <div class="apple-menu-overlay"></div>
+    
+    <nav class="apple-menu">
+        <div class="apple-menu-header">
+            <div class="nav-brand">
+                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
+                <span class="brand-subtitle">CAREER COACHING FOR HIGH PERFORMERS</span>
+            </div>
+            <button class="apple-menu-close" aria-label="Close menu">
+                ✕
+            </button>
+        </div>
+        
+        <div class="apple-menu-nav">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <main style="padding: 120px 20px;">
+        <div class="explanation">
+            <h3>🔍 What You're Seeing</h3>
+            <p><strong>The "double menu" issue occurs because you're viewing on a desktop screen!</strong></p>
+            
+            <div class="current-state" id="current-explanation">
+                Loading explanation...
+            </div>
+            
+            <h4>How to Fix This:</h4>
+            <ol>
+                <li><strong>For desktop testing:</strong> Press F12 → Click device toolbar → Select mobile device</li>
+                <li><strong>For quick test:</strong> Click "Toggle Mobile" button in debug panel above</li>
+                <li><strong>On actual mobile:</strong> Menu will work correctly automatically</li>
+            </ol>
+            
+            <p><strong>Expected Behavior:</strong></p>
+            <ul>
+                <li>🖥️ Desktop (≥1024px): Full desktop menu visible, hamburger hidden</li>
+                <li>📱 Mobile (<1024px): Hamburger visible, desktop menu hidden</li>
+            </ul>
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        function updateDebugInfo() {
+            const viewport = window.innerWidth;
+            const desktopMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.apple-menu-toggle');
+            const mobileMenu = document.querySelector('.apple-menu');
+            
+            document.getElementById('viewport').textContent = viewport;
+            
+            // Check visibility
+            const isDesktopVisible = window.getComputedStyle(desktopMenu).display !== 'none';
+            const isHamburgerVisible = window.getComputedStyle(hamburger).display !== 'none';
+            const isMobileMenuAvailable = window.getComputedStyle(mobileMenu).display !== 'none';
+            
+            document.getElementById('desktop-status').textContent = isDesktopVisible ? 'Visible' : 'Hidden';
+            document.getElementById('desktop-status').className = isDesktopVisible ? 'status-visible' : 'status-hidden';
+            
+            document.getElementById('hamburger-status').textContent = isHamburgerVisible ? 'Visible' : 'Hidden';
+            document.getElementById('hamburger-status').className = isHamburgerVisible ? 'status-visible' : 'status-hidden';
+            
+            document.getElementById('mobile-menu-status').textContent = isMobileMenuAvailable ? 'Available' : 'Hidden';
+            document.getElementById('mobile-menu-status').className = isMobileMenuAvailable ? 'status-visible' : 'status-hidden';
+            
+            // Update explanation
+            const explanation = document.getElementById('current-explanation');
+            if (viewport >= 1024) {
+                explanation.innerHTML = `
+                    <strong>🖥️ Desktop Mode (${viewport}px)</strong><br>
+                    Desktop menu is visible, hamburger is hidden.<br>
+                    This is CORRECT behavior for desktop screens.
+                `;
+                explanation.style.background = '#d4edda';
+            } else {
+                explanation.innerHTML = `
+                    <strong>📱 Mobile Mode (${viewport}px)</strong><br>
+                    Hamburger should be visible, desktop menu should be hidden.<br>
+                    This is CORRECT behavior for mobile screens.
+                `;
+                explanation.style.background = '#cce5ff';
+            }
+        }
+        
+        function toggleMobileMode() {
+            document.body.classList.toggle('force-mobile-debug');
+            updateDebugInfo();
+            console.log('🔄 Mobile mode toggled');
+        }
+        
+        function testHamburger() {
+            const hamburger = document.querySelector('.apple-menu-toggle');
+            if (hamburger && window.getComputedStyle(hamburger).display !== 'none') {
+                hamburger.click();
+                console.log('🍔 Hamburger clicked');
+            } else {
+                alert('Hamburger is not visible! Switch to mobile view first.');
+            }
+        }
+        
+        function refreshStatus() {
+            updateDebugInfo();
+            console.log('🔄 Status refreshed');
+        }
+        
+        // Update on load and resize
+        window.addEventListener('load', updateDebugInfo);
+        window.addEventListener('resize', updateDebugInfo);
+        
+        // Update every 2 seconds
+        setInterval(updateDebugInfo, 2000);
+        
+        console.log('🔧 Menu debug page loaded');
+        console.log('📏 Current viewport:', window.innerWidth + 'x' + window.innerHeight);
+    </script>
+</body>
+</html>

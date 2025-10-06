@@ -212,5 +212,94 @@
     </main>
 
     <script src="assets/js/script.js"></script>
+    
+    <!-- Backup inline JavaScript for hamburger menu -->
+    <script>
+    // Backup hamburger menu functionality in case main script fails
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🔄 Backup hamburger script loading...');
+        
+        // Wait a bit to ensure all elements are ready
+        setTimeout(function() {
+            const hamburger = document.querySelector('.apple-menu-toggle');
+            const menu = document.querySelector('.apple-menu');
+            const overlay = document.querySelector('.apple-menu-overlay');
+            const closeBtn = document.querySelector('.apple-menu-close');
+            
+            console.log('🔍 Backup script found elements:', {
+                hamburger: !!hamburger,
+                menu: !!menu,
+                overlay: !!overlay,
+                close: !!closeBtn
+            });
+            
+            if (hamburger && menu && overlay) {
+                // Remove any existing event listeners to avoid duplicates
+                const newHamburger = hamburger.cloneNode(true);
+                hamburger.parentNode.replaceChild(newHamburger, hamburger);
+                
+                // Add fresh event listener
+                newHamburger.addEventListener('click', function(e) {
+                    console.log('🍔 BACKUP: Hamburger clicked!');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Toggle menu
+                    if (menu.classList.contains('active')) {
+                        // Close menu
+                        menu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        newHamburger.classList.remove('active');
+                        document.body.style.overflow = '';
+                        console.log('🍔 BACKUP: Menu closed');
+                    } else {
+                        // Open menu
+                        menu.classList.add('active');
+                        overlay.classList.add('active');
+                        newHamburger.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        console.log('🍔 BACKUP: Menu opened');
+                    }
+                });
+                
+                // Close button functionality
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function(e) {
+                        console.log('❌ BACKUP: Close button clicked');
+                        e.preventDefault();
+                        menu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        newHamburger.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                }
+                
+                // Overlay click to close
+                overlay.addEventListener('click', function() {
+                    console.log('🌫️ BACKUP: Overlay clicked');
+                    menu.classList.remove('active');
+                    overlay.classList.remove('active');
+                    newHamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                // ESC key to close
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && menu.classList.contains('active')) {
+                        console.log('⌨️ BACKUP: ESC key pressed');
+                        menu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        newHamburger.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+                
+                console.log('✅ BACKUP: Hamburger menu functionality initialized');
+            } else {
+                console.error('❌ BACKUP: Required menu elements not found');
+            }
+        }, 1000); // Wait 1 second to ensure everything is loaded
+    });
+    </script>
 </body>
 </html>

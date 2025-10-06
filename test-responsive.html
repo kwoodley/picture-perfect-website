@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Test - Picture Perfect Consulting</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Test utilities */
+        .test-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 10000;
+            font-family: monospace;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .test-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            background: #007bff;
+            color: white;
+        }
+        
+        .viewport-info {
+            margin-bottom: 10px;
+        }
+        
+        .menu-status {
+            margin-bottom: 10px;
+            color: #00ff00;
+        }
+        
+        .menu-status.error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Test Panel -->
+    <div class="test-panel">
+        <div class="viewport-info">
+            <div>Screen: <span id="screen-size">-</span></div>
+            <div>Viewport: <span id="viewport-size">-</span></div>
+            <div>Device: <span id="device-type">-</span></div>
+        </div>
+        <div class="menu-status" id="menu-status">Menu: Not Tested</div>
+        <div class="test-buttons">
+            <button class="test-btn" onclick="testMenu()">Test Menu</button>
+            <button class="test-btn" onclick="simulateTouch()">Touch Test</button>
+            <button class="test-btn" onclick="testKeyboard()">ESC Test</button>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
+                <span class="brand-subtitle">CAREER COACHING<br>FOR HIGH PERFORMERS</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <a href="services.html" class="nav-link">SERVICES</a>
+                <a href="resources.html" class="nav-link">RESOURCES</a>
+                <a href="contact.html" class="nav-link">CONTACT</a>
+            </nav>
+
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
+
+            <div class="location-info">
+                <span class="location-title" aria-label="Location: Nationwide Online">NATIONWIDE ONLINE</span>
+            </div>
+            
+            <!-- Apple Menu Toggle -->
+            <button class="apple-menu-toggle" aria-label="Open menu">
+                <div class="apple-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Apple Menu Overlay -->
+    <div class="apple-menu-overlay"></div>
+    
+    <!-- Apple Menu -->
+    <nav class="apple-menu">
+        <div class="apple-menu-header">
+            <div class="nav-brand">
+                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
+                <span class="brand-subtitle">CAREER COACHING FOR HIGH PERFORMERS</span>
+            </div>
+            <button class="apple-menu-close" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="apple-menu-nav">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="resources.html" class="nav-link">Resources</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        
+        <div class="apple-menu-footer">
+            <div class="nav-brand">
+                <div class="brand-text">PICTURE PERFECT CONSULTING</div>
+                <div class="brand-subtitle">NATIONWIDE ONLINE</div>
+            </div>
+            
+            <div class="apple-menu-social">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <section style="padding: 2rem 0; text-align: center;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Responsive Menu Test</h1>
+                <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">
+                    This page tests the Apple-style menu across different screen sizes and devices.
+                </p>
+                
+                <div style="display: grid; gap: 1rem; max-width: 600px; margin: 0 auto; text-align: left;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="margin-bottom: 1rem;">✅ Desktop (1024px+)</h3>
+                        <ul style="margin: 0; padding-left: 1.5rem;">
+                            <li>Full navigation menu visible</li>
+                            <li>Apple menu toggle hidden</li>
+                            <li>All desktop features active</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="margin-bottom: 1rem;">📱 Mobile (< 1024px)</h3>
+                        <ul style="margin: 0; padding-left: 1.5rem;">
+                            <li>Desktop menu hidden</li>
+                            <li>Apple hamburger menu visible</li>
+                            <li>Full-screen overlay menu</li>
+                            <li>Touch-friendly navigation</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #f3e5f5; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="margin-bottom: 1rem;">🧪 Test Instructions</h3>
+                        <ol style="margin: 0; padding-left: 1.5rem;">
+                            <li>Resize your browser window</li>
+                            <li>Use browser dev tools to simulate devices</li>
+                            <li>Test on actual mobile devices</li>
+                            <li>Use the test panel controls above</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Test utilities
+        function updateViewportInfo() {
+            const screenSize = `${screen.width}x${screen.height}`;
+            const viewportSize = `${window.innerWidth}x${window.innerHeight}`;
+            const deviceType = window.innerWidth < 768 ? 'Mobile' : 
+                              window.innerWidth < 1024 ? 'Tablet' : 'Desktop';
+            
+            document.getElementById('screen-size').textContent = screenSize;
+            document.getElementById('viewport-size').textContent = viewportSize;
+            document.getElementById('device-type').textContent = deviceType;
+        }
+        
+        function testMenu() {
+            const statusEl = document.getElementById('menu-status');
+            const toggle = document.querySelector('.apple-menu-toggle');
+            const menu = document.querySelector('.apple-menu');
+            const overlay = document.querySelector('.apple-menu-overlay');
+            
+            if (!toggle || !menu || !overlay) {
+                statusEl.textContent = 'Menu: ❌ Elements Missing';
+                statusEl.className = 'menu-status error';
+                return;
+            }
+            
+            // Test visibility based on screen size
+            const isVisible = window.getComputedStyle(toggle).display !== 'none';
+            const shouldBeVisible = window.innerWidth < 1024;
+            
+            if (isVisible === shouldBeVisible) {
+                statusEl.textContent = `Menu: ✅ ${shouldBeVisible ? 'Mobile Menu Active' : 'Desktop Menu Active'}`;
+                statusEl.className = 'menu-status';
+            } else {
+                statusEl.textContent = 'Menu: ❌ Visibility Issue';
+                statusEl.className = 'menu-status error';
+            }
+        }
+        
+        function simulateTouch() {
+            const toggle = document.querySelector('.apple-menu-toggle');
+            if (toggle) {
+                toggle.click();
+                setTimeout(() => {
+                    document.getElementById('menu-status').textContent = 'Menu: 🎉 Touch Test Complete';
+                }, 500);
+            }
+        }
+        
+        function testKeyboard() {
+            const menu = document.querySelector('.apple-menu');
+            if (menu && menu.classList.contains('active')) {
+                // Simulate ESC key
+                const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+                document.dispatchEvent(escEvent);
+                setTimeout(() => {
+                    document.getElementById('menu-status').textContent = 'Menu: ⌨️ Keyboard Test Complete';
+                }, 500);
+            } else {
+                document.getElementById('menu-status').textContent = 'Menu: Open menu first, then test ESC';
+            }
+        }
+        
+        // Update viewport info on load and resize
+        window.addEventListener('load', () => {
+            updateViewportInfo();
+            testMenu();
+        });
+        
+        window.addEventListener('resize', () => {
+            updateViewportInfo();
+            testMenu();
+        });
+        
+        // Auto-test every 5 seconds
+        setInterval(testMenu, 5000);
+    </script>
+</body>
+</html>
