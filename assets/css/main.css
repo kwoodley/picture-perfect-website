@@ -368,6 +368,81 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Bottom Tab Bar Navigation */
+.bottom-tab-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-sm) 0;
+    z-index: 1000;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.bottom-tab-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+.bottom-tab-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all var(--transition-normal);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    min-width: 60px;
+    position: relative;
+}
+
+.bottom-tab-link i {
+    font-size: 20px;
+    margin-bottom: 4px;
+    transition: all var(--transition-normal);
+}
+
+.bottom-tab-link span {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all var(--transition-normal);
+}
+
+.bottom-tab-link:hover,
+.bottom-tab-link.active {
+    color: var(--primary-blue);
+    transform: translateY(-2px);
+}
+
+.bottom-tab-link.active::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-blue);
+    border-radius: 50%;
+}
+
+.bottom-tab-link:hover i,
+.bottom-tab-link.active i {
+    transform: scale(1.1);
+}
+
 /* Social Icons */
 .social-icons {
     display: flex;
@@ -1680,7 +1755,8 @@ body {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .header .container {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr;
+        justify-content: center;
         gap: var(--spacing-lg);
     }
     
@@ -1689,7 +1765,7 @@ body {
     }
     
     .mobile-menu-toggle {
-        display: block;
+        display: none;
     }
     
     .social-icons {
@@ -1702,7 +1778,17 @@ body {
     
     .mobile-menu,
     .mobile-menu-overlay {
+        display: none;
+    }
+    
+    /* Show bottom tab bar on mobile */
+    .bottom-tab-bar {
         display: block;
+    }
+    
+    /* Add bottom padding to main content to account for fixed bottom nav */
+    .main-content {
+        padding-bottom: 100px;
     }
     
     .hero-section {
