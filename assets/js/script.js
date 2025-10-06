@@ -3,94 +3,99 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Picture Perfect Consulting scripts loaded');
     
-    // Apple-Style Mobile Menu Functionality
-    const appleMenuToggle = document.querySelector('.apple-menu-toggle');
-    const appleMenuClose = document.querySelector('.apple-menu-close');
-    const appleMenu = document.querySelector('.apple-menu');
-    const appleMenuOverlay = document.querySelector('.apple-menu-overlay');
-    const body = document.body;
+    // Mobile Tab Navigation Functionality
+    const tabNavigation = document.querySelector('.mobile-tab-nav');
+    const tabLinks = document.querySelectorAll('.tab-link');
     
-    // Debug: Check if Apple menu elements exist
-    console.log('Apple menu elements found:', {
-        toggle: !!appleMenuToggle,
-        close: !!appleMenuClose,
-        menu: !!appleMenu,
-        overlay: !!appleMenuOverlay
+    console.log('📱 Tab navigation elements found:', {
+        navigation: !!tabNavigation,
+        tabCount: tabLinks.length
     });
     
-    // Additional debug info
-    if (appleMenuToggle) {
-        console.log('Toggle element:', appleMenuToggle);
-        console.log('Toggle computed style:', window.getComputedStyle(appleMenuToggle).display);
-        console.log('Toggle clickable:', !appleMenuToggle.disabled);
-        console.log('Toggle position:', appleMenuToggle.getBoundingClientRect());
-    }
-    
-    function openAppleMenu() {
-        console.log('🍎 Opening Apple menu');
-        if (appleMenu) appleMenu.classList.add('active');
-        if (appleMenuOverlay) appleMenuOverlay.classList.add('active');
-        if (appleMenuToggle) appleMenuToggle.classList.add('active');
-        body.style.overflow = 'hidden';
-    }
-    
-    function closeAppleMenu() {
-        console.log('🍎 Closing Apple menu');
-        if (appleMenu) appleMenu.classList.remove('active');
-        if (appleMenuOverlay) appleMenuOverlay.classList.remove('active');
-        if (appleMenuToggle) appleMenuToggle.classList.remove('active');
-        body.style.overflow = '';
-    }
-    
-    if (appleMenuToggle) {
-        console.log('🔧 Adding click listener to hamburger toggle');
-        appleMenuToggle.addEventListener('click', function(e) {
-            console.log('🔘 Apple menu toggle clicked');
-            e.preventDefault();
-            e.stopPropagation();
-            openAppleMenu();
+    // Initialize tab navigation
+    function initTabNavigation() {
+        if (tabLinks.length === 0) return;
+        
+        // Set active tab based on current page
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
+        
+        tabLinks.forEach(tab => {
+            tab.classList.remove('active');
+            const tabPage = tab.dataset.page;
+            
+            if ((currentPage === 'index' && tabPage === 'home') || currentPage === tabPage) {
+                tab.classList.add('active');
+                console.log('📱 Active tab set:', tabPage);
+            }
         });
         
-        // Also try adding event listener for touch devices
-        appleMenuToggle.addEventListener('touchstart', function(e) {
-            console.log('👆 Apple menu toggle touched');
-        }, { passive: true });
-    } else {
-        console.error('❌ Apple menu toggle not found!');
+        // Add tab interaction effects
+        tabLinks.forEach(tab => {
+            // Ripple effect on click
+            tab.addEventListener('click', function(e) {
+                console.log('📱 Tab clicked:', this.dataset.page);
+                
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(37, 99, 235, 0.3);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    transform: scale(0);
+                    animation: tab-ripple 0.6s ease-out;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+            
+            // Hover effects for desktop
+            tab.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateY(-2px)';
+                }
+            });
+            
+            tab.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        
+        console.log('✅ Tab navigation initialized');
     }
     
-    if (appleMenuClose) {
-        appleMenuClose.addEventListener('click', function(e) {
-            console.log('❌ Apple menu close clicked');
-            e.preventDefault();
-            e.stopPropagation();
-            closeAppleMenu();
-        });
+    // Initialize after DOM is loaded
+    initTabNavigation();
+    
+    // Add ripple animation CSS if not already added
+    if (!document.getElementById('tab-ripple-animation')) {
+        const style = document.createElement('style');
+        style.id = 'tab-ripple-animation';
+        style.textContent = `
+            @keyframes tab-ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
-    
-    if (appleMenuOverlay) {
-        appleMenuOverlay.addEventListener('click', function(e) {
-            console.log('🌫️ Apple menu overlay clicked');
-            closeAppleMenu();
-        });
-    }
-    
-    // Close Apple menu when clicking nav links
-    const appleNavLinks = document.querySelectorAll('.apple-menu .nav-link');
-    appleNavLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            console.log('🔗 Apple nav link clicked');
-            closeAppleMenu();
-        });
-    });
-    
-    // Close Apple menu on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && appleMenu && appleMenu.classList.contains('active')) {
-            console.log('⌨️ Escape key pressed');
-            closeAppleMenu();
-        }
-    });
     
     // Navigation link interactions
     const navLinks = document.querySelectorAll('.nav-link');

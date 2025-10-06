@@ -64,53 +64,32 @@
                 <span class="location-title" aria-label="Location: Nationwide Online">NATIONWIDE ONLINE</span>
             </div>
             
-            <!-- Apple Menu Toggle -->
-            <button class="apple-menu-toggle" aria-label="Open menu">
-                <div class="apple-menu-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
         </div>
     </header>
     
-    <!-- Apple Menu Overlay -->
-    <div class="apple-menu-overlay"></div>
-    
-    <!-- Apple Menu -->
-    <nav class="apple-menu">
-        <div class="apple-menu-header">
-            <div class="nav-brand">
-                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
-                <span class="brand-subtitle">CAREER COACHING FOR HIGH PERFORMERS</span>
-            </div>
-            <button class="apple-menu-close" aria-label="Close menu">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="apple-menu-nav">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="services.html" class="nav-link">Services</a>
-            <a href="resources.html" class="nav-link">Resources</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-        </div>
-        
-        <div class="apple-menu-footer">
-            <div class="nav-brand">
-                <div class="brand-text">PICTURE PERFECT CONSULTING</div>
-                <div class="brand-subtitle">NATIONWIDE ONLINE</div>
-            </div>
-            
-            <div class="apple-menu-social">
-                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-            </div>
+    <!-- Mobile Tab Navigation -->
+    <nav class="mobile-tab-nav">
+        <div class="tab-container">
+            <a href="index.html" class="tab-link active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="about.html" class="tab-link" data-page="about">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+            </a>
+            <a href="services.html" class="tab-link" data-page="services">
+                <i class="fas fa-briefcase"></i>
+                <span>Services</span>
+            </a>
+            <a href="resources.html" class="tab-link" data-page="resources">
+                <i class="fas fa-book"></i>
+                <span>Resources</span>
+            </a>
+            <a href="contact.html" class="tab-link" data-page="contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
         </div>
     </nav>
 
@@ -213,92 +192,79 @@
 
     <script src="assets/js/script.js"></script>
     
-    <!-- Backup inline JavaScript for hamburger menu -->
+    <!-- Tab Navigation JavaScript -->
     <script>
-    // Backup hamburger menu functionality in case main script fails
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🔄 Backup hamburger script loading...');
+        console.log('📱 Tab navigation initialized');
         
-        // Wait a bit to ensure all elements are ready
-        setTimeout(function() {
-            const hamburger = document.querySelector('.apple-menu-toggle');
-            const menu = document.querySelector('.apple-menu');
-            const overlay = document.querySelector('.apple-menu-overlay');
-            const closeBtn = document.querySelector('.apple-menu-close');
-            
-            console.log('🔍 Backup script found elements:', {
-                hamburger: !!hamburger,
-                menu: !!menu,
-                overlay: !!overlay,
-                close: !!closeBtn
+        // Set active tab based on current page
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
+        const tabLinks = document.querySelectorAll('.tab-link');
+        
+        // Remove active from all tabs
+        tabLinks.forEach(tab => tab.classList.remove('active'));
+        
+        // Set active tab
+        const activeTab = document.querySelector(`[data-page="${currentPage === 'index' ? 'home' : currentPage}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
+        
+        // Add tab click effects
+        tabLinks.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    transform: scale(0);
+                    animation: tab-ripple 0.6s ease-out;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+                
+                console.log('📱 Tab clicked:', this.dataset.page);
             });
             
-            if (hamburger && menu && overlay) {
-                // Remove any existing event listeners to avoid duplicates
-                const newHamburger = hamburger.cloneNode(true);
-                hamburger.parentNode.replaceChild(newHamburger, hamburger);
-                
-                // Add fresh event listener
-                newHamburger.addEventListener('click', function(e) {
-                    console.log('🍔 BACKUP: Hamburger clicked!');
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Toggle menu
-                    if (menu.classList.contains('active')) {
-                        // Close menu
-                        menu.classList.remove('active');
-                        overlay.classList.remove('active');
-                        newHamburger.classList.remove('active');
-                        document.body.style.overflow = '';
-                        console.log('🍔 BACKUP: Menu closed');
-                    } else {
-                        // Open menu
-                        menu.classList.add('active');
-                        overlay.classList.add('active');
-                        newHamburger.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                        console.log('🍔 BACKUP: Menu opened');
-                    }
-                });
-                
-                // Close button functionality
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', function(e) {
-                        console.log('❌ BACKUP: Close button clicked');
-                        e.preventDefault();
-                        menu.classList.remove('active');
-                        overlay.classList.remove('active');
-                        newHamburger.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
+            // Add hover effects
+            tab.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateY(-2px)';
                 }
-                
-                // Overlay click to close
-                overlay.addEventListener('click', function() {
-                    console.log('🌫️ BACKUP: Overlay clicked');
-                    menu.classList.remove('active');
-                    overlay.classList.remove('active');
-                    newHamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-                
-                // ESC key to close
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && menu.classList.contains('active')) {
-                        console.log('⌨️ BACKUP: ESC key pressed');
-                        menu.classList.remove('active');
-                        overlay.classList.remove('active');
-                        newHamburger.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-                
-                console.log('✅ BACKUP: Hamburger menu functionality initialized');
-            } else {
-                console.error('❌ BACKUP: Required menu elements not found');
+            });
+            
+            tab.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add CSS animation for ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes tab-ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
             }
-        }, 1000); // Wait 1 second to ensure everything is loaded
+        `;
+        document.head.appendChild(style);
     });
     </script>
 </body>
