@@ -246,22 +246,43 @@ body {
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    min-height: 80px;
+    position: relative;
+}
+
+.mobile-menu-header .nav-brand {
+    flex: 1;
+    max-width: calc(100% - 50px);
 }
 
 .mobile-menu-close {
     background: none;
-    border: none;
+    border: 2px solid var(--border-color);
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
     color: var(--text-primary);
-    padding: var(--spacing-xs);
+    padding: 0;
     transition: all var(--transition-normal);
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--surface-color);
+    box-shadow: var(--shadow-md);
 }
 
 .mobile-menu-close:hover {
-    color: var(--primary-blue);
-    transform: rotate(90deg);
+    color: white;
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+    transform: rotate(90deg) scale(1.1);
 }
 
 .mobile-menu-nav {
