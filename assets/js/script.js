@@ -3,99 +3,99 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Picture Perfect Consulting scripts loaded');
     
-    // Mobile Tab Navigation Functionality
-    const tabNavigation = document.querySelector('.mobile-tab-nav');
-    const tabLinks = document.querySelectorAll('.tab-link');
+    // Sidebar Menu Functionality
+    const sidebarToggle = document.querySelector('.sidebar-menu-toggle');
+    const sidebarMenu = document.querySelector('.sidebar-menu');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+    const sidebarClose = document.querySelector('.sidebar-close');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
     
-    console.log('📱 Tab navigation elements found:', {
-        navigation: !!tabNavigation,
-        tabCount: tabLinks.length
+    console.log('📱 Sidebar elements found:', {
+        toggle: !!sidebarToggle,
+        menu: !!sidebarMenu,
+        overlay: !!sidebarOverlay,
+        close: !!sidebarClose,
+        linkCount: sidebarLinks.length
     });
     
-    // Initialize tab navigation
-    function initTabNavigation() {
-        if (tabLinks.length === 0) return;
+    // Initialize sidebar navigation
+    function initSidebarNavigation() {
+        if (!sidebarToggle || !sidebarMenu) return;
         
-        // Set active tab based on current page
+        // Set active link based on current page
         const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
         
-        tabLinks.forEach(tab => {
-            tab.classList.remove('active');
-            const tabPage = tab.dataset.page;
+        sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+            const linkHref = link.getAttribute('href');
+            const linkPage = linkHref ? linkHref.split('/').pop().replace('.html', '') : '';
             
-            if ((currentPage === 'index' && tabPage === 'home') || currentPage === tabPage) {
-                tab.classList.add('active');
-                console.log('📱 Active tab set:', tabPage);
+            if ((currentPage === 'index' && linkPage === 'index') || currentPage === linkPage) {
+                link.classList.add('active');
+                console.log('📱 Active sidebar link set:', linkPage);
             }
         });
         
-        // Add tab interaction effects
-        tabLinks.forEach(tab => {
-            // Ripple effect on click
-            tab.addEventListener('click', function(e) {
-                console.log('📱 Tab clicked:', this.dataset.page);
-                
-                // Add ripple effect
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.cssText = `
-                    position: absolute;
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${x}px;
-                    top: ${y}px;
-                    background: rgba(37, 99, 235, 0.3);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    transform: scale(0);
-                    animation: tab-ripple 0.6s ease-out;
-                `;
-                
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
-            });
-            
-            // Hover effects for desktop
-            tab.addEventListener('mouseenter', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.transform = 'translateY(-2px)';
-                }
-            });
-            
-            tab.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.transform = 'translateY(0)';
-                }
+        // Toggle sidebar menu
+        function toggleSidebar(show) {
+            if (show) {
+                sidebarMenu.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                sidebarToggle.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            } else {
+                sidebarMenu.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                sidebarToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Event listeners
+        sidebarToggle.addEventListener('click', () => {
+            const isOpen = sidebarMenu.classList.contains('active');
+            toggleSidebar(!isOpen);
+            console.log('📱 Sidebar toggled:', !isOpen);
+        });
+        
+        sidebarClose.addEventListener('click', () => {
+            toggleSidebar(false);
+            console.log('📱 Sidebar closed');
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            toggleSidebar(false);
+            console.log('📱 Sidebar closed via overlay');
+        });
+        
+        // Close sidebar when a link is clicked
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleSidebar(false);
+                console.log('📱 Sidebar closed via link click');
             });
         });
         
-        console.log('✅ Tab navigation initialized');
+        // Close sidebar on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebarMenu.classList.contains('active')) {
+                toggleSidebar(false);
+                console.log('📱 Sidebar closed via escape key');
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024 && sidebarMenu.classList.contains('active')) {
+                toggleSidebar(false);
+            }
+        });
+        
+        console.log('✅ Sidebar navigation initialized');
     }
     
     // Initialize after DOM is loaded
-    initTabNavigation();
-    
-    // Add ripple animation CSS if not already added
-    if (!document.getElementById('tab-ripple-animation')) {
-        const style = document.createElement('style');
-        style.id = 'tab-ripple-animation';
-        style.textContent = `
-            @keyframes tab-ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    initSidebarNavigation();
     
     // Navigation link interactions
     const navLinks = document.querySelectorAll('.nav-link');
