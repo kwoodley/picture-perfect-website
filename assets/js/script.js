@@ -3,76 +3,76 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Picture Perfect Consulting scripts loaded');
     
-    // Mobile Menu Functionality
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenuClose = document.querySelector('.mobile-menu-close');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    // Apple-Style Mobile Menu Functionality
+    const appleMenuToggle = document.querySelector('.apple-menu-toggle');
+    const appleMenuClose = document.querySelector('.apple-menu-close');
+    const appleMenu = document.querySelector('.apple-menu');
+    const appleMenuOverlay = document.querySelector('.apple-menu-overlay');
     const body = document.body;
     
-    // Debug: Check if mobile menu elements exist
-    console.log('Mobile menu elements found:', {
-        toggle: !!mobileMenuToggle,
-        close: !!mobileMenuClose,
-        menu: !!mobileMenu,
-        overlay: !!mobileMenuOverlay
+    // Debug: Check if Apple menu elements exist
+    console.log('Apple menu elements found:', {
+        toggle: !!appleMenuToggle,
+        close: !!appleMenuClose,
+        menu: !!appleMenu,
+        overlay: !!appleMenuOverlay
     });
     
-    function openMobileMenu() {
-        console.log('📱 Opening mobile menu');
-        if (mobileMenu) mobileMenu.classList.add('active');
-        if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
-        if (mobileMenuToggle) mobileMenuToggle.classList.add('active');
+    function openAppleMenu() {
+        console.log('🍎 Opening Apple menu');
+        if (appleMenu) appleMenu.classList.add('active');
+        if (appleMenuOverlay) appleMenuOverlay.classList.add('active');
+        if (appleMenuToggle) appleMenuToggle.classList.add('active');
         body.style.overflow = 'hidden';
     }
     
-    function closeMobileMenu() {
-        console.log('📱 Closing mobile menu');
-        if (mobileMenu) mobileMenu.classList.remove('active');
-        if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
-        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+    function closeAppleMenu() {
+        console.log('🍎 Closing Apple menu');
+        if (appleMenu) appleMenu.classList.remove('active');
+        if (appleMenuOverlay) appleMenuOverlay.classList.remove('active');
+        if (appleMenuToggle) appleMenuToggle.classList.remove('active');
         body.style.overflow = '';
     }
     
-    if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', function(e) {
-            console.log('🔘 Mobile menu toggle clicked');
+    if (appleMenuToggle) {
+        appleMenuToggle.addEventListener('click', function(e) {
+            console.log('🔘 Apple menu toggle clicked');
             e.preventDefault();
             e.stopPropagation();
-            openMobileMenu();
+            openAppleMenu();
         });
     }
     
-    if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', function(e) {
-            console.log('❌ Mobile menu close clicked');
+    if (appleMenuClose) {
+        appleMenuClose.addEventListener('click', function(e) {
+            console.log('❌ Apple menu close clicked');
             e.preventDefault();
             e.stopPropagation();
-            closeMobileMenu();
+            closeAppleMenu();
         });
     }
     
-    if (mobileMenuOverlay) {
-        mobileMenuOverlay.addEventListener('click', function(e) {
-            console.log('🌫️ Mobile menu overlay clicked');
-            closeMobileMenu();
+    if (appleMenuOverlay) {
+        appleMenuOverlay.addEventListener('click', function(e) {
+            console.log('🌫️ Apple menu overlay clicked');
+            closeAppleMenu();
         });
     }
     
-    // Close mobile menu when clicking nav links
-    const mobileNavLinks = document.querySelectorAll('.mobile-menu .nav-link');
-    mobileNavLinks.forEach(link => {
+    // Close Apple menu when clicking nav links
+    const appleNavLinks = document.querySelectorAll('.apple-menu .nav-link');
+    appleNavLinks.forEach(link => {
         link.addEventListener('click', function() {
-            console.log('🔗 Mobile nav link clicked');
-            closeMobileMenu();
+            console.log('🔗 Apple nav link clicked');
+            closeAppleMenu();
         });
     });
     
-    // Close mobile menu on escape key
+    // Close Apple menu on escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+        if (e.key === 'Escape' && appleMenu && appleMenu.classList.contains('active')) {
             console.log('⌨️ Escape key pressed');
-            closeMobileMenu();
+            closeAppleMenu();
         }
     });
     
