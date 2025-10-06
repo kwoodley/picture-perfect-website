@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Menu Debug</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            font-size: 12px;
+        }
+        .test-button {
+            margin: 10px;
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <div>Screen width: <span id="screen-width"></span>px</div>
+        <div>Menu toggle visible: <span id="toggle-visible">-</span></div>
+        <div>Menu panel visible: <span id="panel-visible">-</span></div>
+        <div>Menu active: <span id="menu-active">-</span></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
+                <span class="brand-subtitle">CAREER COACHING<br>FOR HIGH PERFORMERS</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <a href="services.html" class="nav-link">SERVICES</a>
+            </nav>
+
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            </div>
+
+            <div class="location-info">
+                <span class="location-title">NATIONWIDE ONLINE</span>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" aria-label="Open mobile menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+    
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="nav-brand">
+                <span class="brand-text">PICTURE PERFECT CONSULTING</span>
+                <span class="brand-subtitle">CAREER COACHING<br>FOR HIGH PERFORMERS</span>
+            </div>
+            <button class="mobile-menu-close" aria-label="Close mobile menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-menu-nav">
+            <a href="index.html" class="nav-link active">HOME</a>
+            <a href="about.html" class="nav-link">ABOUT</a>
+            <a href="services.html" class="nav-link">SERVICES</a>
+        </div>
+        
+        <div class="mobile-menu-footer">
+            <div class="mobile-menu-social">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div class="mobile-menu-location">
+                NATIONWIDE ONLINE
+            </div>
+        </div>
+    </nav>
+
+    <main style="padding: 100px 20px;">
+        <h1>Mobile Menu Debug Page</h1>
+        <p>Use browser developer tools to test responsive breakpoints.</p>
+        <button class="test-button" onclick="testMenu()">Test Menu Toggle</button>
+        <button class="test-button" onclick="forceShowMenu()">Force Show Menu</button>
+        <button class="test-button" onclick="checkElements()">Check Elements</button>
+    </main>
+
+    <script>
+        function updateDebugInfo() {
+            document.getElementById('screen-width').textContent = window.innerWidth;
+            
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const menu = document.querySelector('.mobile-menu');
+            const overlay = document.querySelector('.mobile-menu-overlay');
+            
+            const toggleStyle = window.getComputedStyle(toggle);
+            document.getElementById('toggle-visible').textContent = toggleStyle.display;
+            
+            const menuStyle = window.getComputedStyle(menu);
+            document.getElementById('panel-visible').textContent = menuStyle.display;
+            
+            document.getElementById('menu-active').textContent = menu.classList.contains('active');
+        }
+        
+        function testMenu() {
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            console.log('Testing menu toggle click...');
+            if (toggle) {
+                toggle.click();
+                console.log('Toggle clicked');
+            } else {
+                console.log('Toggle not found!');
+            }
+        }
+        
+        function forceShowMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const overlay = document.querySelector('.mobile-menu-overlay');
+            if (menu && overlay) {
+                menu.classList.add('active');
+                overlay.classList.add('active');
+                console.log('Menu forced to show');
+            }
+        }
+        
+        function checkElements() {
+            console.log('=== Element Check ===');
+            console.log('Toggle:', document.querySelector('.mobile-menu-toggle'));
+            console.log('Menu:', document.querySelector('.mobile-menu'));
+            console.log('Overlay:', document.querySelector('.mobile-menu-overlay'));
+            console.log('Close button:', document.querySelector('.mobile-menu-close'));
+        }
+        
+        // Update debug info regularly
+        setInterval(updateDebugInfo, 500);
+        updateDebugInfo();
+        
+        // Log when scripts load
+        console.log('Debug script loaded');
+        
+        // Mobile Menu Functionality (inline for testing)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded fired');
+            
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+            const body = document.body;
+            
+            console.log('Elements found:', {
+                toggle: !!mobileMenuToggle,
+                close: !!mobileMenuClose,
+                menu: !!mobileMenu,
+                overlay: !!mobileMenuOverlay
+            });
+            
+            function openMobileMenu() {
+                console.log('Opening mobile menu...');
+                if (mobileMenu) mobileMenu.classList.add('active');
+                if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+                if (mobileMenuToggle) mobileMenuToggle.classList.add('active');
+                body.style.overflow = 'hidden';
+            }
+            
+            function closeMobileMenu() {
+                console.log('Closing mobile menu...');
+                if (mobileMenu) mobileMenu.classList.remove('active');
+                if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+                if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    console.log('Toggle clicked!');
+                    e.preventDefault();
+                    openMobileMenu();
+                });
+            }
+            
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', function(e) {
+                    console.log('Close clicked!');
+                    e.preventDefault();
+                    closeMobileMenu();
+                });
+            }
+            
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            }
+        });
+    </script>
+</body>
+</html>

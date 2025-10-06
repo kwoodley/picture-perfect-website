@@ -1,6 +1,8 @@
 // Picture Perfect Consulting - JavaScript Functionality
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Picture Perfect Consulting scripts loaded');
+    
     // Mobile Menu Functionality
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileMenuClose = document.querySelector('.mobile-menu-close');
@@ -8,41 +10,68 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
     const body = document.body;
     
+    // Debug: Check if mobile menu elements exist
+    console.log('Mobile menu elements found:', {
+        toggle: !!mobileMenuToggle,
+        close: !!mobileMenuClose,
+        menu: !!mobileMenu,
+        overlay: !!mobileMenuOverlay
+    });
+    
     function openMobileMenu() {
-        mobileMenu.classList.add('active');
-        mobileMenuOverlay.classList.add('active');
-        mobileMenuToggle.classList.add('active');
+        console.log('📱 Opening mobile menu');
+        if (mobileMenu) mobileMenu.classList.add('active');
+        if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+        if (mobileMenuToggle) mobileMenuToggle.classList.add('active');
         body.style.overflow = 'hidden';
     }
     
     function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+        console.log('📱 Closing mobile menu');
+        if (mobileMenu) mobileMenu.classList.remove('active');
+        if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
         body.style.overflow = '';
     }
     
     if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuToggle.addEventListener('click', function(e) {
+            console.log('🔘 Mobile menu toggle clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            openMobileMenu();
+        });
     }
     
     if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuClose.addEventListener('click', function(e) {
+            console.log('❌ Mobile menu close clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileMenu();
+        });
     }
     
     if (mobileMenuOverlay) {
-        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', function(e) {
+            console.log('🌫️ Mobile menu overlay clicked');
+            closeMobileMenu();
+        });
     }
     
     // Close mobile menu when clicking nav links
     const mobileNavLinks = document.querySelectorAll('.mobile-menu .nav-link');
     mobileNavLinks.forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
+        link.addEventListener('click', function() {
+            console.log('🔗 Mobile nav link clicked');
+            closeMobileMenu();
+        });
     });
     
     // Close mobile menu on escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+            console.log('⌨️ Escape key pressed');
             closeMobileMenu();
         }
     });
@@ -387,13 +416,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Smooth page load animation
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.6s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
+    // Smooth page load animation (simplified to avoid mobile menu conflicts)
+    document.body.style.transition = 'opacity 0.3s ease';
+    document.body.style.opacity = '1';
 
     // Add scroll-to-top functionality
     const scrollToTopBtn = document.createElement('button');
