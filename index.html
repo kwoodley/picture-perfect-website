@@ -26,7 +26,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Noto+Serif+Display:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Preload critical resources -->
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="nav-brand">
                 <span class="brand-text">PICTURE PERFECT CONSULTING</span>
-                <span class="brand-subtitle">CAREER COACHING<br>FOR HIGH PERFORMERS</span>
+                <span class="brand-subtitle">CAREER COACHING FOR HIGH PERFORMERS</span>
             </div>
             
             <nav class="nav-menu">
@@ -57,8 +57,6 @@
                 <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-            </div>
-            
             </div>
             
             <!-- Mobile Menu Toggle -->
@@ -118,6 +116,13 @@
         </div>
     </nav>
     <main class="main-content">
+        <!-- Animated Background Orbs -->
+        <div class="animated-background">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        
         <div class="container">
             <div class="hero-section">
                 <div class="hero-content">
@@ -138,17 +143,44 @@
                     </div>
                 </div>
                 
-                <div class="hero-image">
-                    <div class="career-mockup">
-                        <div class="success-items">
-                            <div class="laptop"></div>
-                            <div class="notebook"></div>
-                            <div class="coffee-cup"></div>
-                            <div class="trophy"></div>
-                            <div class="graph-chart"></div>
-                            <div class="sticky-notes"></div>
-                            <div class="calendar"></div>
-                            <div class="diploma"></div>
+                <div class="hero-stats">
+                    <div class="stat-card" style="animation-delay: 0.1s">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Career Transitions</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" style="animation-delay: 0.2s">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">92%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" style="animation-delay: 0.3s">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">$45K</div>
+                            <div class="stat-label">Avg Salary Increase</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" style="animation-delay: 0.4s">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">6 mo</div>
+                            <div class="stat-label">Avg Transition Time</div>
                         </div>
                     </div>
                 </div>
@@ -199,16 +231,73 @@
                 </div>
             </section>
 
-            <!-- Testimonial Section -->
+            <!-- Testimonial Carousel Section -->
             <section class="testimonial-section">
-                <div class="testimonial-content">
-                    <blockquote class="testimonial-quote">
-                        "Picture Perfect Consulting helped me transition from a corporate job I hated to a fulfilling career in nonprofit leadership. The process was clear, supportive, and incredibly effective."
-                    </blockquote>
-                    <cite class="testimonial-author">
-                        <strong>Sarah M.</strong>
-                        <span>Nonprofit Director</span>
-                    </cite>
+                <h3 class="section-title">What Our Clients Say</h3>
+                <div class="testimonial-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track">
+                            <!-- Testimonial 1 -->
+                            <div class="testimonial-slide active">
+                                <blockquote class="testimonial-quote">
+                                    "Picture Perfect Consulting helped me transition from a corporate job I hated to a fulfilling career in nonprofit leadership. The process was clear, supportive, and incredibly effective."
+                                </blockquote>
+                                <cite class="testimonial-author">
+                                    <strong>Sarah M.</strong>
+                                    <span>Nonprofit Director</span>
+                                </cite>
+                            </div>
+                            
+                            <!-- Testimonial 2 -->
+                            <div class="testimonial-slide">
+                                <blockquote class="testimonial-quote">
+                                    "I was stuck in tech for 10 years and burned out. Within 6 months of working with Picture Perfect, I landed my dream role in product design with a 40% salary increase. Life-changing!"
+                                </blockquote>
+                                <cite class="testimonial-author">
+                                    <strong>Marcus J.</strong>
+                                    <span>Senior Product Designer</span>
+                                </cite>
+                            </div>
+                            
+                            <!-- Testimonial 3 -->
+                            <div class="testimonial-slide">
+                                <blockquote class="testimonial-quote">
+                                    "The career assessments opened my eyes to opportunities I never considered. Now I wake up excited about work every day. Best investment I've ever made in myself."
+                                </blockquote>
+                                <cite class="testimonial-author">
+                                    <strong>Jennifer L.</strong>
+                                    <span>Marketing Director</span>
+                                </cite>
+                            </div>
+                            
+                            <!-- Testimonial 4 -->
+                            <div class="testimonial-slide">
+                                <blockquote class="testimonial-quote">
+                                    "I thought changing careers at 45 was impossible. Picture Perfect showed me how to leverage my experience and pivot successfully. I'm now doing work I love with better work-life balance."
+                                </blockquote>
+                                <cite class="testimonial-author">
+                                    <strong>David R.</strong>
+                                    <span>Strategy Consultant</span>
+                                </cite>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev" aria-label="Previous testimonial">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-dots">
+                            <button class="dot active" data-slide="0" aria-label="Go to slide 1"></button>
+                            <button class="dot" data-slide="1" aria-label="Go to slide 2"></button>
+                            <button class="dot" data-slide="2" aria-label="Go to slide 3"></button>
+                            <button class="dot" data-slide="3" aria-label="Go to slide 4"></button>
+                        </div>
+                        <button class="carousel-btn next" aria-label="Next testimonial">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>
